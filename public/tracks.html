@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tracks List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Tracks List</h1>
+    <ul id="track-list"></ul>
+    <a href="/">Back</a>
+
+    <script>
+        async function fetchTracks() {
+            try {
+                const response = await fetch('/tracks');
+                const tracks = await response.json();
+                const trackList = document.getElementById('track-list');
+
+                tracks.forEach(track => {
+                    const li = document.createElement('li');
+                    li.textContent = `${track.title} - ${track.artist}`;
+                    trackList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error al obtener las pistas:', error);
+            }
+        }
+
+        fetchTracks();
+    </script>
+</body>
+</html>
